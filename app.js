@@ -72,6 +72,33 @@ app.use(indexRoutes);
 app.use("/jobs", jobRoutes);
 app.use("/jobs/:id/bids", bidRoutes);
 
+//Receive sms and response
+const http = require('http');
+// const express = require('express');
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+// const bodyParser = require('body-parser');
+
+
+// app.use(bodyParser.urlencoded({ extended: true }));
+
+  app.post('/sms', (req, res) => {
+  const twiml = new MessagingResponse();
+
+  // console.log(req.body);
+  if (req.body.Body == 'hello') {
+    twiml.message('Hi!');
+  } else if (req.body.Body == 'bye') {
+    twiml.message('Goodbye');
+  } else {
+    twiml.message(
+      'No Body param match, Twilio sends this in the request to your server.'
+    );
+  }
+
+  res.writeHead(200, { 'Content-Type': 'text/xml' });
+  res.end(twiml.toString());
+});
+
 // Setting up Port
 app.listen(3000, process.env.IP, function() {
     console.log("VLift Server is Active!");
