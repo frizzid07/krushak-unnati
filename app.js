@@ -15,29 +15,17 @@ var bodyParser = require("body-parser"),
     app = express();
 
 // Models
-var Job = require("./models/job"),
+var commodity = require("./models/commodity"),
     Bid = require("./models/bid"),
     User = require("./models/user");
 
 // Routes
-var jobRoutes = require("./routes/jobs"),
+var commodityRoutes = require("./routes/commodities"),
     bidRoutes = require("./routes/bids"),
     indexRoutes = require("./routes/index");
 
-// Connection
-
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://tanmaybhagwat07@gmail.com:frizzid303@krushak-unnati-xikl2.mongodb.net/test?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   perform actions on the collection object
-//   client.close();
-// });tanmaybhagwat07@gmail.com:frizzid303
-
-mongoose.connect("mongodb+srv://user:user@krushak-unnati-xikl2.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true});
+mongoose.connect("mongodb+srv://user:user@krushak-unnati-xikl2.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set('useFindAndModify', false);
-mongoose.set('useUnifiedTopology', true);
 
 // Default Settings
 app.use(bodyParser.urlencoded({extended: true}));
@@ -69,8 +57,8 @@ app.use(function(req, res, next) {
 
 // Routing
 app.use(indexRoutes);
-app.use("/jobs", jobRoutes);
-app.use("/jobs/:id/bids", bidRoutes);
+app.use("/commodities", commodityRoutes);
+app.use("/commodities/:id/bids", bidRoutes);
 
 // Setting up Port
 app.listen(3000, process.env.IP, function() {
