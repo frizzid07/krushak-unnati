@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-8 col-md-12">
                 <div class="img-thumbnail">
-                    <img class="img-responsive" src="<%= job.image %>">
+                    <img class="img-responsive" src="<%= commodity.image %>">
                 </div>
                 <div class="caption-full">
                     <div class="card">
@@ -12,20 +12,20 @@
                             <h3>Details</h3>
                         </div>
                         <div class="card-body">
-                            <h3 class="d-inline float-right"><%= job.created.toDateString() %></h3>
-                            <h2 class="d-inline"><%= job.title %></h2><hr>
-                            <p class="desc"><%= job.description %></p>
-                            <p><em>Posted by <%= job.author.username %></em></p>
-                            <% if(currentUser && job.author.id.equals(currentUser._id)) { %>
-                                <a href="/jobs/<%= job._id %>/edit" class="btn btn-warning">Edit</a>
-                                <form class="line" action="/jobs/<%= job._id %>?_method=DELETE" method="POST">
+                            <h3 class="d-inline float-right"><%= commodity.created.toDateString() %></h3>
+                            <h2 class="d-inline"><%= commodity.title %></h2><hr>
+                            <p class="desc"><%= commodity.description %></p>
+                            <p><em>Posted by <%= commodity.author.username %></em></p>
+                            <% if(currentUser && commodity.author.id.equals(currentUser._id)) { %>
+                                <a href="/commodities/<%= commodity._id %>/edit" class="btn btn-warning">Edit</a>
+                                <form class="line" action="/commodities/<%= commodity._id %>?_method=DELETE" method="POST">
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
                             <% } %>
-                        <% if(job.accepted) { %>
+                        <% if(commodity.accepted) { %>
                                 <h3><em>Job already assigned!</em></h3>
-                                <% if(currentUser && job.author.id.equals(currentUser._id)) { %>
-                                    <form action="/jobs/<%= job._id %>/reject" class="line" method="POST">
+                                <% if(currentUser && commodity.author.id.equals(currentUser._id)) { %>
+                                    <form action="/commodities/<%= commodity._id %>/reject" class="line" method="POST">
                                         <button class="btn btn-danger">Reject Bid</button>
                                     </form>
                                 <% } %>
@@ -35,23 +35,23 @@
                                 </div>
                             </div>
                             <div class="card text-black bg-light mb-3">
-                                <% if(currentUser && job.author.id.equals(currentUser._id)) { %>
+                                <% if(currentUser && commodity.author.id.equals(currentUser._id)) { %>
                                     <div class="card-header">
                                         <h3>
                                             Active Bids
-                                            <a class="btn btn-dark float-right" href="/jobs">View All Jobs</a>                                    
+                                            <a class="btn btn-dark float-right" href="/commodities">View All Jobs</a>                                    
                                         </h3>
                                     </div>
                                 <% } else { %>
                                     <div class="card-header">
                                         <h3>
                                             Active Bids
-                                            <a class="btn btn-success float-right" href="/jobs/<%= job._id %>/bids/new">Make a New Bid</a>
+                                            <a class="btn btn-success float-right" href="/commodities/<%= commodity._id %>/bids/new">Make a New Bid</a>
                                         </h3>
                                     </div>
                                 <% } %>
                                 <div class="card-body">
-                                    <% job.bids.forEach(function(bid) { %>
+                                    <% commodity.bids.forEach(function(bid) { %>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <strong><%= bid.author.username %></strong>
@@ -59,17 +59,17 @@
                                                 <p>
                                                     <div>
                                                         <h3>₹<%= bid.amount %></h3>
-                                                            <% if(currentUser && job.author.id.equals(currentUser._id)) { %>
+                                                            <% if(currentUser && commodity.author.id.equals(currentUser._id)) { %>
                                                                 <div class="float-right line">
-                                                                    <form action="/jobs/<%= job._id %>/bids/<%= bid._id %>" method="POST">
+                                                                    <form action="/commodities/<%= commodity._id %>/bids/<%= bid._id %>" method="POST">
                                                                         <button class="btn btn-success">Accept Bid</button>
                                                                     </form>
                                                                 </div>
                                                             <% } %>
                                                             <% if(currentUser && bid.author.id.equals(currentUser._id)) { %>
                                                                 <div class="float-right line">
-                                                                    <a class="btn btn-warning" href="/jobs/<%= job._id %>/bids/<%= bid._id %>/edit">Edit</a>
-                                                                    <form action="/jobs/<%= job._id %>/bids/<%= bid._id %>?_method=DELETE" class="line" method="POST">
+                                                                    <a class="btn btn-warning" href="/commodities/<%= commodity._id %>/bids/<%= bid._id %>/edit">Edit</a>
+                                                                    <form action="/commodities/<%= commodity._id %>/bids/<%= bid._id %>?_method=DELETE" class="line" method="POST">
                                                                         <button class="btn btn-danger">Delete</button>
                                                                     </form>
                                                                 </div>

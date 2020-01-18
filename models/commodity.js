@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-var jobSchema = new mongoose.Schema({
+var commoditySchema = new mongoose.Schema({
     title: String,
     image: String,
     description: String,
@@ -21,4 +21,4 @@ var jobSchema = new mongoose.Schema({
     accepted: Boolean
 });
 
-module.exports = mongoose.model("Job", jobSchema);
+module.exports = mongoose.model("Commodity", commoditySchema);

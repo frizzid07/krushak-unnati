@@ -1,14 +1,14 @@
-var Job = require("../models/job");
+var Commodity = require("../models/commodity");
 var Bid = require("../models/bid");
 var middlewareObj = {};
 
-middlewareObj.checkJobOwnership = function(req, res, next) {
+middlewareObj.checkCommodityOwnership = function(req, res, next) {
     if(req.isAuthenticated()) {
-        Job.findById(req.params.id, function(err, foundJob) {
+        Commodity.findById(req.params.id, function(err, foundCommodity) {
             if(err) {
-                req.flash("error", "Job not found!");
+                req.flash("error", "Commodity not found!");
                 res.redirect("back");
-            } else if(foundJob.author.id.equals(req.user._id)) {
+            } else if(foundCommodity.author.id.equals(req.user._id)) {
                 next();
             } else {
                 req.flash("error", "User does not have the permission to do that!");

@@ -1,24 +1,24 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
-var Job = require("../models/job");
+var Commodity = require("../models/commodity");
 var Bid = require("../models/bid");
 var middleware = require("../middleware");
 
 router.get("/new", middleware.isLoggedIn, function(req, res) {
-    Job.findById(req.params.id, function(err, job) {
+    Commodity.findById(req.params.id, function(err, commodity) {
         if(err) {
             console.log(err);
         } else {
-            res.render("bids/new", {job: job});
+            res.render("bids/new", {commodity: commodity});
         }
     });
 });
 
 router.post("/", function(req, res) {
-    Job.findById(req.params.id, function(err, job) {
+    Commodity.findById(req.params.id, function(err, commodity) {
         if(err) {
             console.log(err);
-            res.redirect("/jobs");
+            res.redirect("/commoditys");
         } else {
             Bid.create(req.body.bid, function(err, bid) {
                 if (err) {
@@ -28,10 +28,10 @@ router.post("/", function(req, res) {
                     bid.author.id = req.user._id;
                     bid.author.username = req.user.username;
                     bid.save();
-                    job.bids.push(bid);
-                    job.save();
+                    commodity.bids.push(bid);
+                    commodity.save();
                     req.flash("success", "Bid added successfully!");
-                    res.redirect("/jobs/" + job._id);
+                    res.redirect("/commoditys/" + commodity._id);
                 }            
             });
         }
@@ -44,7 +44,7 @@ router.get("/:bid_id/edit", middleware.checkBidOwnership, function(req, res) {
         if(err) {
             res.redirect("back");
         } else {
-            res.render("bids/edit", {job_id: req.params.id, bid: foundBid});
+            res.render("bids/edit", {commodity_id: req.params.id, bid: foundBid});
         }
     });
 });
@@ -56,7 +56,7 @@ router.put("/:bid_id", middleware.checkBidOwnership, function(req, res) {
             res.redirect("back");
         } else {
             req.flash("success", "Comment edited successfully!");
-            res.redirect("/jobs/" + req.params.id);
+            res.redirect("/commoditys/" + req.params.id);
         }
     });
 });
@@ -68,40 +68,40 @@ router.delete("/:bid_id", middleware.checkBidOwnership, function(req, res) {
             res.redirect("back");
         } else {
             req.flash("success", "Comment deleted successfully!");
-            res.redirect("/jobs/" + req.params.id);
+            res.redirect("/commoditys/" + req.params.id);
         }
     });
 });
 
 // Accept
-router.post("/:bid_id", middleware.checkJobOwnership, function(req, res) {
-    Job.findById(req.params.id, function(err, job) {
+router.post("/:bid_id", middleware.checkCommodityOwnership, function(req, res) {
+    Commodity.findById(req.params.id, function(err, commodity) {
         if(err) {
             console.log(err);
-            res.redirect("/jobs");
+            res.redirect("/commoditys");
         } else {
-            var title = job.title;
-            var image = job.image;
-            var salary = job.salary;
-            var desc = job.description;
+            var title = commodity.title;
+            var image = commodity.image;
+            var salary = commodity.salary;
+            var desc = commodity.description;
             var author = {
                 id: req.user._id,
                 username: req.user.username
             };
-            var newJob = {title: title, image: image, salary: salary, description: desc, author: author, accepted: true};
-            Job.findByIdAndRemove(job._id, {new: true}, function(err) {
+            var newCommodity = {title: title, image: image, salary: salary, description: desc, author: author, accepted: true};
+            Commodity.findByIdAndRemove(commodity._id, {new: true}, function(err) {
                 if(err) {
                     req.flash("error", "Bid unsuccessful!");
-                    res.redirect("/jobs");
+                    res.redirect("/commoditys");
                 }
                 else {
-                    res.redirect("/jobs");
+                    res.redirect("/commoditys");
                 }
             });
-            Job.create(newJob, function(err, newDesg) {
+            Commodity.create(newCommodity, function(err, newDesg) {
                 if (err) {
                     req.flash("error", "Bid Unsuccessful!");
-                    res.redirect("/jobs");
+                    res.redirect("/commoditys");
                 } else {
                     req.flash("success", "Bid successfull!");
                 }
