@@ -18,7 +18,7 @@ router.post("/", function(req, res) {
     Commodity.findById(req.params.id, function(err, commodity) {
         if(err) {
             console.log(err);
-            res.redirect("/commoditys");
+            res.redirect("/commodities");
         } else {
             Bid.create(req.body.bid, function(err, bid) {
                 if (err) {
@@ -31,7 +31,7 @@ router.post("/", function(req, res) {
                     commodity.bids.push(bid);
                     commodity.save();
                     req.flash("success", "Bid added successfully!");
-                    res.redirect("/commoditys/" + commodity._id);
+                    res.redirect("/commodities/" + commodity._id);
                 }            
             });
         }
@@ -56,7 +56,7 @@ router.put("/:bid_id", middleware.checkBidOwnership, function(req, res) {
             res.redirect("back");
         } else {
             req.flash("success", "Comment edited successfully!");
-            res.redirect("/commoditys/" + req.params.id);
+            res.redirect("/commodities/" + req.params.id);
         }
     });
 });
@@ -68,7 +68,7 @@ router.delete("/:bid_id", middleware.checkBidOwnership, function(req, res) {
             res.redirect("back");
         } else {
             req.flash("success", "Comment deleted successfully!");
-            res.redirect("/commoditys/" + req.params.id);
+            res.redirect("/commodities/" + req.params.id);
         }
     });
 });
@@ -78,7 +78,7 @@ router.post("/:bid_id", middleware.checkCommodityOwnership, function(req, res) {
     Commodity.findById(req.params.id, function(err, commodity) {
         if(err) {
             console.log(err);
-            res.redirect("/commoditys");
+            res.redirect("/commodities");
         } else {
             var title = commodity.title;
             var image = commodity.image;
@@ -88,22 +88,22 @@ router.post("/:bid_id", middleware.checkCommodityOwnership, function(req, res) {
                 id: req.user._id,
                 username: req.user.username
             };
-            var newCommodity = {title: title, image: image, salary: salary, description: desc, author: author, accepted: true};
+            var newCommodity = {title: title, image: image, minBid: minBid, description: desc, author: author, accepted: true};
             Commodity.findByIdAndRemove(commodity._id, {new: true}, function(err) {
                 if(err) {
                     req.flash("error", "Bid unsuccessful!");
-                    res.redirect("/commoditys");
+                    res.redirect("/commodities");
                 }
                 else {
-                    res.redirect("/commoditys");
+                    res.redirect("/commodities");
                 }
             });
             Commodity.create(newCommodity, function(err, newDesg) {
                 if (err) {
                     req.flash("error", "Bid Unsuccessful!");
-                    res.redirect("/commoditys");
+                    res.redirect("/commodities");
                 } else {
-                    req.flash("success", "Bid successfull!");
+                    req.flash("success", "Bid successful!");
                 }
             });        
         }
