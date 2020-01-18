@@ -4,6 +4,8 @@ var commoditySchema = new mongoose.Schema({
     title: String,
     image: String,
     description: String,
+    minPrice: Number,
+    currentPrice: Number,
     author: {
         id: {
             type: mongoose.Schema.ObjectId,

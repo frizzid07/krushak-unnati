@@ -20,13 +20,14 @@ router.get("/", function(req, res) {
 router.post("/", middleware.isLoggedIn, function(req, res) {
     var title = req.body.title;
     var image = req.body.image;
-    var salary = req.body.salary;
+    var minBid = req.body.minBid;
+    var currentBid = req.body.currentBid;
     var desc = req.body.description;
     var author = {
         id: req.user._id,
         username: req.user.username
     };
-    var newCommodity = {title: title, image: image, minBid: minBid, description: desc, author: author, accepted: false};
+    var newCommodity = {title: title, image: image, minBid: minBid, currentBid: currentBid, description: desc, author: author, accepted: false};
     Commodity.create(newCommodity, function(err, newDesg) {
         if (err) {
             req.flash("error", "Commodity could not be added!");
@@ -108,7 +109,7 @@ router.post("/:id/reject", middleware.checkCommodityOwnership, function(req, res
                 id: req.user._id,
                 username: req.user.username
             };
-            var newCommodity = {title: title, image: image, salary: salary, description: desc, author: author, accepted: false};
+            var newCommodity = {title: title, image: image, minBid: minBid, description: desc, author: author, accepted: false};
             Commodity.findByIdAndRemove(commodity._id, {new: true}, function(err) {
                 if(err) {
                     req.flash("error", "Bid unsuccessful!");

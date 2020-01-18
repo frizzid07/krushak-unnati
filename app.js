@@ -2,12 +2,6 @@
 var bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
     passport = require("passport"),
-    // MongoDBStore = require('connect-mongodb-session'),
-    // store = new MongoDBStore({
-    //     uri: "mongodb://frizzid:frizzid303@ds227939.mlab.com:27939/vlift",
-    //     databaseName: "vlift"
-    // }),
-    
     passportLocal = require("passport-local"),
     methodOverride = require("method-override"),
     flash = require("connect-flash"),
@@ -33,12 +27,10 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
-// seedDB();
 
 // Passport Config
 app.use(require("express-session")({
     secret: "abc",
-    // store: store,
     resave: false,
     saveUninitialized: false
 }));
@@ -62,5 +54,5 @@ app.use("/commodities/:id/bids", bidRoutes);
 
 // Setting up Port
 app.listen(3000, process.env.IP, function() {
-    console.log("VLift Server is Active!");
+    console.log("Krushak Unnati Server is Active!");
 });
