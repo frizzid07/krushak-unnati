@@ -7,6 +7,7 @@ var bodyParser = require("body-parser"),
     //     uri: "mongodb://frizzid:frizzid303@ds227939.mlab.com:27939/vlift",
     //     databaseName: "vlift"
     // }),
+    
     passportLocal = require("passport-local"),
     methodOverride = require("method-override"),
     flash = require("connect-flash"),
@@ -24,9 +25,19 @@ var jobRoutes = require("./routes/jobs"),
     indexRoutes = require("./routes/index");
 
 // Connection
-mongoose.connect("mongodb://frizzid:frizzid303@ds227939.mlab.com:27939/vlift", {useNewUrlParser: true});
-// mongodb://localhost/vlift
+
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = "mongodb+srv://tanmaybhagwat07@gmail.com:frizzid303@krushak-unnati-xikl2.mongodb.net/test?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   perform actions on the collection object
+//   client.close();
+// });tanmaybhagwat07@gmail.com:frizzid303
+
+mongoose.connect("mongodb+srv://user:user@krushak-unnati-xikl2.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true});
 mongoose.set('useFindAndModify', false);
+mongoose.set('useUnifiedTopology', true);
 
 // Default Settings
 app.use(bodyParser.urlencoded({extended: true}));
@@ -62,6 +73,6 @@ app.use("/jobs", jobRoutes);
 app.use("/jobs/:id/bids", bidRoutes);
 
 // Setting up Port
-app.listen(process.env.PORT, process.env.IP, function() {
+app.listen(3000, process.env.IP, function() {
     console.log("VLift Server is Active!");
 });
