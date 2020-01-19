@@ -21,15 +21,17 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 // Post New Commodity Info
 router.post("/", middleware.isLoggedIn, function(req, res) {
     var item = req.body.item;
+    var quantity = req.body.quantity;
     var image = req.body.image;
-    var minBid = req.body.minBid;
+    var minBid = sj_model.predictor('Onion', 30)
+    console.log(minBid)
     var currentBid = req.body.minBid;
     var desc = req.body.description;
     var author = {
         id: req.user._id,
         username: req.user.username
     };
-    var newCommodity = {item: item, image: image, minBid: minBid, currentBid: currentBid, description: desc, author: author, accepted: false};
+    var newCommodity = {item: item, quantity: quantity, image: image, minBid: minBid, currentBid: currentBid, description: desc, author: author, accepted: false};
     Commodity.create(newCommodity, function(err, newDesg) {
         if (err) {
             req.flash("error", "Commodity could not be added!");

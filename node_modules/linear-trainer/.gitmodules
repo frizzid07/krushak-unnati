@@ -1,0 +1,3 @@
+[submodule "linear-trainer-cmd"]
+	path = linear-trainer-cmd
+	url = git@github.com:sgvictorino/linear-regression-cmd.git

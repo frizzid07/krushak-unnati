@@ -13,7 +13,7 @@
     
         <div class="row">
             <% commodities.forEach(function(commodity) { %>
-                <% if(commodity.author.username == currentUser.username) {%>
+                <% if(commodity.author.username == currentUser.username || currentUser.type == "Distributor") {%>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="img-thumbnail img-responsive">
                         <img src="<%= commodity.image %>">
