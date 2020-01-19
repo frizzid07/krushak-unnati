@@ -70,6 +70,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 	  list_details=str.split(' ');
 	  // console.log(list_details[2])
 	  if(list_details.length==3){
+		  //Farmer Sign Up using SMS
 	  var newUser = new User({username: list_details[0], mobile: list_details[2]});
     User.register(newUser, list_details[1], function(err, user) {
 		const accountSid = 'AC60a73ba734edfe8f62b3e82ea3da4467';
@@ -93,25 +94,31 @@ module.exports = client;
         if(err) {
             twiml.message('Registration failed, try again later!');
         }else{
-		
 		twiml.message('Registration Successful!');
 		
 			}
 			});
-  // if (req.body.Body == 'hello') {
-  //   twiml.message('Hi!');
-  // } else if (req.body.Body == 'bye') {
-  //   twiml.message('Goodbye');
-  // } else {
-  //   twiml.message(
-  //     'No Body param match, Twilio sends this in the request to your server.'
-  //   );
-  // }
 	}
 	 else{
-		 // list_details;
-		 // app.post()
-	 }
+	// var title = list_details[0];
+	// var minBid = req.body.minBid;
+	// var currentBid = req.body.minBid;
+	// var desc = req.body.description;
+	// var author = {
+	// id: req.user._id,
+	// username: req.user.username
+	// };
+	// var newCommodity = {title: title, image: image, minBid: minBid, currentBid: currentBid, description: desc, author: author, accepted: false};
+	// Commodity.create(newCommodity, function(err, newDesg) {
+	// if (err) {
+	// req.flash("error", "Commodity could not be added!");
+	// res.redirect("/commodities/new");
+	// } else {
+	// req.flash("success", "Commodity added successfully!");
+	// res.redirect("/commodities");
+	// }
+	// });
+}
 
   res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());
