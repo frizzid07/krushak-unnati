@@ -5,6 +5,7 @@ var middleware = require("../middleware");
 
 var linear = require('../model');
 var minPrice;
+var result;
 // Show Commodities
 
 // var minBid = Math.round(Math.random() * (7800 - 6800) + 6800)
@@ -61,7 +62,7 @@ router.get("/:id", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            var result = linear.predictor(foundCommodity.item, req.user.normalstorage_filled)
+            result = linear.predictor(foundCommodity.item, req.user.normalstorage_filled)
             res.render("commodities/show", {commodity: foundCommodity, result: result});
         }    
     });
