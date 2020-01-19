@@ -43,7 +43,7 @@ router.get("/registerDistributor", function(req, res) {
 
 router.post("/register", function(req, res) {
 
-    var newUser = new User({username: req.body.username, mobile: req.body.mobile, type: userType, normalstorage: req.body.normalstorage, coldstorage: req.body.coldstorage, location: req.body.location});
+    var newUser = new User({username: req.body.username, mobile: req.body.mobile, type: userType, normalstorage: req.body.normalstorage, coldstorage: req.body.coldstorage, normalstorage_filled: req.body.normalstorage_filled, coldstorage_filled: req.body.coldstorage_filled, location: req.body.location});
     User.register(newUser, req.body.password, function(err, user) {
         if(err) {
             req.flash("error", err.message);

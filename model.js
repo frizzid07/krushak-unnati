@@ -1,4 +1,4 @@
-var linear = require("linear-trainer");
+var linear = require('linear-trainer');
 var fs = require('fs'); 
 var parse = require('csv-parse');
 var csvData_tonnes=[];
@@ -9,10 +9,8 @@ var pred;
 for(var i =0;i<25;i++){
   csvData_date[i]=count++;
 }
-
-  module.exports = {
-
-    predictor : (dataset,val) => {
+    module.exports = {
+      predictor : (dataset,val) => {
       fs.createReadStream(dataset+"-price.csv")
     .pipe(parse({delimiter: ','}))
     .on('data', function(csvrow) {
@@ -28,7 +26,6 @@ for(var i =0;i<25;i++){
       
       linear.train(x,csvData_price)
       pred = Math.round(linear.predict([[31,val]]))
-      return Number(pred[0]);
     });
-    }    
+    }
   }

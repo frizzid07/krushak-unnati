@@ -3,9 +3,12 @@ var router = express.Router({mergeParams: true});
 var Commodity = require("../models/commodity");
 var middleware = require("../middleware");
 
-var sj_model = require('../model');
-
+var linear = require('../model');
+var minPrice;
 // Show Commodities
+
+// var minBid = Math.round(Math.random() * (7800 - 6800) + 6800)
+
 router.get("/", middleware.isLoggedIn, function(req, res) {
     Commodity.find({}, function(err, allCommodities) {
         if(err) {
@@ -21,17 +24,21 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 // Post New Commodity Info
 router.post("/", middleware.isLoggedIn, function(req, res) {
     var item = req.body.item;
+    linear.predictor(item, currentUser.normalstorage_filled)
     var quantity = req.body.quantity;
     var image = req.body.image;
-    var minBid = sj_model.predictor('Onion', 30)
-    console.log(minBid)
-    var currentBid = req.body.minBid;
     var desc = req.body.description;
     var author = {
         id: req.user._id,
         username: req.user.username
     };
-    var newCommodity = {item: item, quantity: quantity, image: image, minBid: minBid, currentBid: currentBid, description: desc, author: author, accepted: false};
+    if(item == 'Onion') {
+        minPrice = 4890
+    } else {
+        minPrice = 7055
+    }
+    var currentPrice = minPrice;
+    var newCommodity = {item: item, quantity: quantity, image: image, minPrice: minPrice, currentPrice: currentPrice, description: desc, author: author, accepted: false};
     Commodity.create(newCommodity, function(err, newDesg) {
         if (err) {
             req.flash("error", "Commodity could not be added!");
@@ -54,7 +61,8 @@ router.get("/:id", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render("commodities/show", {commodity: foundCommodity});
+            var result = linear.predictor(foundCommodity.item, req.user.normalstorage_filled)
+            res.render("commodities/show", {commodity: foundCommodity, result: result});
         }    
     });
 });
@@ -113,7 +121,7 @@ router.post("/:id/reject", middleware.checkCommodityOwnership, function(req, res
                 id: req.user._id,
                 username: req.user.username
             };
-            var newCommodity = {item: item, image: image, minBid: minBid, description: desc, author: author, accepted: false};
+            var newCommodity = {item: item, image: image, minPrice: minPrice, description: desc, author: author, accepted: false};
             Commodity.findByIdAndRemove(commodity._id, {new: true}, function(err) {
                 if(err) {
                     req.flash("error", "Bid unsuccessful!");

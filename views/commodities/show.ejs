@@ -22,6 +22,8 @@
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
                             <% } %>
+                            <p class="desc">Minimum Bid Amount- <%= commodity.minPrice %></p>
+                            <p class="desc">Projected Amount- <%= result %></p>
                         <% if(commodity.accepted) { %>
                                 <h3><em>Job already assigned!</em></h3>
                                 <% if(currentUser && commodity.author.id.equals(currentUser._id)) { %>
@@ -74,7 +76,6 @@
                                                                     </form>
                                                                 </div>
                                                             <% } %>
-                                                        <h4>To be completed in <%= bid.completed %> day(s)</h4>
                                                         <p><%= bid.description %></p><hr>
                                                     </div>
                                                 </p>
