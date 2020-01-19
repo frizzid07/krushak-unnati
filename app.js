@@ -100,36 +100,40 @@ module.exports = client;
 			});
 	}
 	 else{
-	// var title = list_details[0];
-	// var minBid = req.body.minBid;
-	// var currentBid = req.body.minBid;
-	// var desc = req.body.description;
-	// var author = {
-	// id: req.user._id,
-	// username: req.user.username
-	// };
-	// var newCommodity = {title: title, image: image, minBid: minBid, currentBid: currentBid, description: desc, author: author, accepted: false};
-	// Commodity.create(newCommodity, function(err, newDesg) {
-	// if (err) {
-	// req.flash("error", "Commodity could not be added!");
-	// res.redirect("/commodities/new");
-	// } else {
-	// req.flash("success", "Commodity added successfully!");
-	// res.redirect("/commodities");
-	// }
-	// });
+	var item = list_details[0];
+	var minBid = 5000;
+	var minBid = commodity.minBid;
+	var quantity = list_details[1];
+	for(var i = 3; i<list_details.length;i++){
+		descrip=descrip+list_details[i];
+	}
+	var desc = descrip;
+	var author = {
+	id: req.user._id,
+	username: list_details[2]
+	};
+	var newCommodity = {title: title, minBid: minBid, currentBid: currentBid, description: desc, author: author, accepted: false};
+	Commodity.create(newCommodity, function(err, newDesg) {
+	if (err) {
+	req.flash("error", "Commodity could not be added!");
+	res.redirect("/commodities/new");
+	} else {
+	req.flash("success", "Commodity added successfully!");
+	res.redirect("/commodities");
+	}
+	});
 }
 
   // console.log(req.body);
-  if (req.body.Body == 'hello') {
-    twiml.message('Hi!');
-  } else if (req.body.Body == 'bye') {
-    twiml.message('Goodbye');
-  } else {
-    twiml.message(
-      'No Body param match, Twilio sends this in the request to your server.'
-    );
-  }
+  // if (req.body.Body == 'hello') {
+  //   twiml.message('Hi!');
+  // } else if (req.body.Body == 'bye') {
+  //   twiml.message('Goodbye');
+  // } else {
+  //   twiml.message(
+  //     'No Body param match, Twilio sends this in the request to your server.'
+  //   );
+  // }
   res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());
 });
