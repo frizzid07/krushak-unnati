@@ -60,24 +60,44 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 
 // app.use(bodyParser.urlencoded({ extended: true }));
-
+// var client = require('./sms.js');
   app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
 
   console.log(req.body.Body);
 	  str=req.body.Body;
-  console.log(str.split(',').join("\r\n"));
-	  list_details=str.split(',');
-	  console.log(list_details[2])
-	  var newUser = new User({username: list_details[0], password: list_details[1], mobile: list_details[2]});
-    User.register(newUser, function(err, user) {
+  // console.log(str.split(',').join("\r\n"));
+	  list_details=str.split(' ');
+	  // console.log(list_details[2])
+	  if(list_details.length==3){
+	  var newUser = new User({username: list_details[0], mobile: list_details[2]});
+    User.register(newUser, list_details[1], function(err, user) {
+		const accountSid = 'AC60a73ba734edfe8f62b3e82ea3da4467';
+	const authToken = '82b0adef9db385d97eef3edd5e622741';
+	const client = require('twilio')(accountSid, authToken);
+
+	// const phone = Number(list_details[2].toString());
+	// console.log(typeof(list_details[2]));
+	const numb = list_details[2].toString();
+	// numb = '0'+numb;
+	client.messages
+	  .create({
+		 body: 'Welcome to Krushak Unnati, '+list_details[0],
+		 from: '+12563914462',
+		 to: numb
+	   })
+	  .then(message => console.log(message.sid));
+
+module.exports = client;
+		
         if(err) {
             twiml.message('Registration failed, try again later!');
-        }
-		else{
-			twiml.message('Registration Successful!');
-		}
-    });
+        }else{
+		
+		twiml.message('Registration Successful!');
+		
+			}
+			});
   // if (req.body.Body == 'hello') {
   //   twiml.message('Hi!');
   // } else if (req.body.Body == 'bye') {
@@ -87,6 +107,11 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
   //     'No Body param match, Twilio sends this in the request to your server.'
   //   );
   // }
+	}
+	 else{
+		 // list_details;
+		 // app.post()
+	 }
 
   res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());

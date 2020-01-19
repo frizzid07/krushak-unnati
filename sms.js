@@ -9,7 +9,7 @@ client.messages
   .create({
      body: 'Welcome to Krushak Unnati',
      from: '+12563914462',
-     to: '+918652859451'
+     to: phone
    })
   .then(message => console.log(message.sid));
 

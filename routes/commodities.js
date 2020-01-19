@@ -21,7 +21,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
     var title = req.body.title;
     var image = req.body.image;
     var minBid = req.body.minBid;
-    var currentBid = req.body.currentBid;
+    var currentBid = req.body.minBid;
     var desc = req.body.description;
     var author = {
         id: req.user._id,
