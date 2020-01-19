@@ -60,7 +60,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 
 // app.use(bodyParser.urlencoded({ extended: true }));
-
+// var client = require('./sms.js');
   app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
 

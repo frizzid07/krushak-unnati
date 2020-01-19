@@ -3,6 +3,8 @@ var router = express.Router({mergeParams: true});
 var Commodity = require("../models/commodity");
 var middleware = require("../middleware");
 
+var sj_model = require('../model');
+
 // Show Commodities
 router.get("/", middleware.isLoggedIn, function(req, res) {
     Commodity.find({}, function(err, allCommodities) {
@@ -21,7 +23,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
     var item = req.body.item;
     var image = req.body.image;
     var minBid = req.body.minBid;
-    var currentBid = req.body.currentBid;
+    var currentBid = req.body.minBid;
     var desc = req.body.description;
     var author = {
         id: req.user._id,
