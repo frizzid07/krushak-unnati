@@ -3,6 +3,8 @@ var router = express.Router({mergeParams: true});
 var Commodity = require("../models/commodity");
 var middleware = require("../middleware");
 
+var sj_model = require('../model');
+
 // Show Commodities
 router.get("/", middleware.isLoggedIn, function(req, res) {
     Commodity.find({}, function(err, allCommodities) {
