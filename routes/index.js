@@ -4,6 +4,9 @@ var passport = require("passport");
 var User = require("../models/user");
 var userType;
 
+var middleware = require("../middleware");
+
+
 // Landing
 router.get("/", function(req, res) {
     res.render("landing");
@@ -53,6 +56,24 @@ router.post("/register", function(req, res) {
     });
 });
 
+//Profile
+router.get("/profile", middleware.isLoggedIn,function (req, res) {
+    // console.log(req.user);
+    User.find(req.user._id, function(err, userdata) {
+        if(err) {
+            req.flash("error", "Commodities could not be loaded!");
+            req.redirect("/");
+        }
+        else {
+            
+            if(userdata[0].type === 'Distributor'){
+                res.render("profile",{userdata:userdata[0]});
+            }
+            
+        }
+    });
+    
+});
 // Logout
 router.get("/logout", function(req, res) {
     req.logout();

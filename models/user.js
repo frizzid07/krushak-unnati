@@ -6,8 +6,15 @@ var userSchema = new mongoose.Schema({
      password: String,
      type: String,
      mobile: Number,
+<<<<<<< HEAD
      coldstorage: {type: Number, default: 0},
      normalstorage: {type: Number, default: 0},
+=======
+     coldstorage: Number,
+     normalstorage: Number,
+     coldstorage_filled:Number,
+     normalstorage_filled:Number,
+>>>>>>> 6724b96bf35353e94a85eebe9212dce0ee2ac211
      location: String
 });
 
