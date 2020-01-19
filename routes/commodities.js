@@ -18,7 +18,7 @@ router.get("/", middleware.isLoggedIn, function(req, res) {
 
 // Post New Commodity Info
 router.post("/", middleware.isLoggedIn, function(req, res) {
-    var title = req.body.title;
+    var item = req.body.item;
     var image = req.body.image;
     var minBid = req.body.minBid;
     var currentBid = req.body.currentBid;
@@ -27,7 +27,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
         id: req.user._id,
         username: req.user.username
     };
-    var newCommodity = {title: title, image: image, minBid: minBid, currentBid: currentBid, description: desc, author: author, accepted: false};
+    var newCommodity = {item: item, image: image, minBid: minBid, currentBid: currentBid, description: desc, author: author, accepted: false};
     Commodity.create(newCommodity, function(err, newDesg) {
         if (err) {
             req.flash("error", "Commodity could not be added!");
@@ -101,15 +101,15 @@ router.post("/:id/reject", middleware.checkCommodityOwnership, function(req, res
             console.log(err);
             res.redirect("/commodities");
         } else {
-            var title = commodity.title;
+            var item = commodity.item;
             var image = commodity.image;
-            var salary = commodity.salary;
+            var minBid = commodity.minBid;
             var desc = commodity.description;
             var author = {
                 id: req.user._id,
                 username: req.user.username
             };
-            var newCommodity = {title: title, image: image, minBid: minBid, description: desc, author: author, accepted: false};
+            var newCommodity = {item: item, image: image, minBid: minBid, description: desc, author: author, accepted: false};
             Commodity.findByIdAndRemove(commodity._id, {new: true}, function(err) {
                 if(err) {
                     req.flash("error", "Bid unsuccessful!");

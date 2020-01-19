@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var commoditySchema = new mongoose.Schema({
-    title: String,
+    item: String,
     image: String,
     quantity: Number,
     description: String,

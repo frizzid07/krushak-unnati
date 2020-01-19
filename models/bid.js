@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var bidSchema = mongoose.Schema({
-    amount: String,
+    amount: Number,
     transport: Boolean,
     description: String,
     author: {

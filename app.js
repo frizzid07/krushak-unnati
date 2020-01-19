@@ -74,7 +74,6 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
       'No Body param match, Twilio sends this in the request to your server.'
     );
   }
-
   res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());
 });
