@@ -82,7 +82,7 @@ router.post("/:bid_id", middleware.checkCommodityOwnership, function(req, res) {
         } else {
             var title = commodity.title;
             var image = commodity.image;
-            var salary = commodity.salary;
+            var minBid = commodity.minBid;
             var desc = commodity.description;
             var author = {
                 id: req.user._id,
