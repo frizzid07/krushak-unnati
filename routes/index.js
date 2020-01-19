@@ -34,7 +34,7 @@ router.post("/register", function(req, res) {
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function() {
-            req.flash("success", "Welcome to VLift, " + user.username);
+            req.flash("success", "Welcome to Krushak-Unnati, " + user.username);
             res.redirect("/jobs");
         });
     });

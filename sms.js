@@ -12,3 +12,5 @@ client.messages
      to: '+918652859451'
    })
   .then(message => console.log(message.sid));
+
+module.exports = client;

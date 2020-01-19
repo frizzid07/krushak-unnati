@@ -64,16 +64,29 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
   app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
 
-  // console.log(req.body);
-  if (req.body.Body == 'hello') {
-    twiml.message('Hi!');
-  } else if (req.body.Body == 'bye') {
-    twiml.message('Goodbye');
-  } else {
-    twiml.message(
-      'No Body param match, Twilio sends this in the request to your server.'
-    );
-  }
+  console.log(req.body.Body);
+	  str=req.body.Body;
+  console.log(str.split(',').join("\r\n"));
+	  list_details=str.split(',');
+	  console.log(list_details[2])
+	  var newUser = new User({username: list_details[0], password: list_details[1], mobile: list_details[2]});
+    User.register(newUser, function(err, user) {
+        if(err) {
+            twiml.message('Registration failed, try again later!');
+        }
+		else{
+			twiml.message('Registration Successful!');
+		}
+    });
+  // if (req.body.Body == 'hello') {
+  //   twiml.message('Hi!');
+  // } else if (req.body.Body == 'bye') {
+  //   twiml.message('Goodbye');
+  // } else {
+  //   twiml.message(
+  //     'No Body param match, Twilio sends this in the request to your server.'
+  //   );
+  // }
 
   res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());
