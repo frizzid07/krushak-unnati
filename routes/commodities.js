@@ -3,8 +3,8 @@ var router = express.Router({mergeParams: true});
 var Commodity = require("../models/commodity");
 var middleware = require("../middleware");
 
-// Show Commoditys
-router.get("/", function(req, res) {
+// Show Commodities
+router.get("/", middleware.isLoggedIn, function(req, res) {
     Commodity.find({}, function(err, allCommodities) {
         if(err) {
             req.flash("error", "Commodities could not be loaded!");

@@ -30,6 +30,5 @@ for(var i =0;i<25;i++){
       pred = Math.round(linear.predict([[31,val]]))
       return pred;
     });
-    }
-    
+    }    
   }

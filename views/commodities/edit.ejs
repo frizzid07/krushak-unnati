@@ -6,10 +6,13 @@
                 <h1 class="formTitle">Edit "<%= commodity.title %>"</h1>
                 <form action="/commodities/<%= commodity._id %>?_method=PUT" method="POST">
                     <div class="form-group">
-                        <input class="form-control form-control-lg" type="text" name="commodity[title]" value="<%= commodity.title %>" placeholder="Title">    
+                        <input class="form-control form-control-lg" type="text" name="commodity[item]" value="<%= commodity.item %>" placeholder="Item">    
                     </div>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" type="text" name="commodity[image]" value="<%= commodity.image %>" placeholder="Job Image">
+                        <input class="form-control form-control-lg" type="number" name="commodity[quantity]" value="<%= commodity.quantity %>" placeholder="Quantity">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" type="text" name="commodity[image]" value="<%= commodity.image %>" placeholder="Image">
                     </div>
                     <div class="form-group">
                         <input class="form-control form-control-lg" type="text" name="commodity[description]" value="<%= commodity.description %>" placeholder="Description...">
