@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body">
                             <h3 class="d-inline float-right"><%= commodity.created.toDateString() %></h3>
-                            <h2 class="d-inline"><%= commodity.title %></h2><hr>
+                            <h2 class="d-inline"><%= commodity.item %></h2><hr>
                             <p class="desc"><%= commodity.description %></p>
                             <p><em>Posted by <%= commodity.author.username %></em></p>
                             <% if(currentUser && commodity.author.id.equals(currentUser._id)) { %>

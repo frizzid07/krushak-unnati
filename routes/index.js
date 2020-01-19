@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router({mergeParams: true});
 var passport = require("passport");
 var User = require("../models/user");
+var userType;
 
 // Landing
 router.get("/", function(req, res) {
@@ -29,14 +30,17 @@ router.post("/login", passport.authenticate("local",{
 // Register
 router.get("/registerFarmer", function(req, res) {
     res.render("registerFarmer");
+    userType = "Farmer"
 });
 
 router.get("/registerDistributor", function(req, res) {
     res.render("registerDistributor");
+    userType = "Distributor"
 });
 
 router.post("/register", function(req, res) {
-    var newUser = new User({username: req.body.username});
+
+    var newUser = new User({username: req.body.username, mobile: req.body.mobile, type: userType, normalstorage: req.body.normalstorage, coldstorage: req.body.coldstorage, location: req.body.location});
     User.register(newUser, req.body.password, function(err, user) {
         if(err) {
             req.flash("error", err.message);

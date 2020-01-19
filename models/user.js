@@ -6,8 +6,8 @@ var userSchema = new mongoose.Schema({
      password: String,
      type: String,
      mobile: Number,
-     coldstorage: Number,
-     normalstorage: Number,
+     coldstorage: {type: Number, default: 0},
+     normalstorage: {type: Number, default: 0},
      location: String
 });
 
