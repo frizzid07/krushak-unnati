@@ -64,16 +64,76 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
   app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
 
+  console.log(req.body.Body);
+	  str=req.body.Body;
+  // console.log(str.split(',').join("\r\n"));
+	  list_details=str.split(' ');
+	  // console.log(list_details[2])
+	  if(list_details.length==3){
+		  //Farmer Sign Up using SMS
+	  var newUser = new User({username: list_details[0], mobile: list_details[2]});
+    User.register(newUser, list_details[1], function(err, user) {
+		const accountSid = 'AC60a73ba734edfe8f62b3e82ea3da4467';
+	const authToken = '82b0adef9db385d97eef3edd5e622741';
+	const client = require('twilio')(accountSid, authToken);
+
+	// const phone = Number(list_details[2].toString());
+	// console.log(typeof(list_details[2]));
+	const numb = list_details[2].toString();
+	// numb = '0'+numb;
+	client.messages
+	  .create({
+		 body: 'Welcome to Krushak Unnati, '+list_details[0],
+		 from: '+12563914462',
+		 to: numb
+	   })
+	  .then(message => console.log(message.sid));
+
+module.exports = client;
+		
+        if(err) {
+            twiml.message('Registration failed, try again later!');
+        }else{
+		twiml.message('Registration Successful!');
+		
+			}
+			});
+	}
+	 else{
+	var item = list_details[0];
+	var minBid = 5000;
+	var minBid = commodity.minBid;
+	var quantity = list_details[1];
+	for(var i = 3; i<list_details.length;i++){
+		descrip=descrip+list_details[i];
+	}
+	var desc = descrip;
+	var author = {
+	id: req.user._id,
+	username: list_details[2]
+	};
+	var newCommodity = {title: title, minBid: minBid, currentBid: currentBid, description: desc, author: author, accepted: false};
+	Commodity.create(newCommodity, function(err, newDesg) {
+	if (err) {
+	req.flash("error", "Commodity could not be added!");
+	res.redirect("/commodities/new");
+	} else {
+	req.flash("success", "Commodity added successfully!");
+	res.redirect("/commodities");
+	}
+	});
+}
+
   // console.log(req.body);
-  if (req.body.Body == 'hello') {
-    twiml.message('Hi!');
-  } else if (req.body.Body == 'bye') {
-    twiml.message('Goodbye');
-  } else {
-    twiml.message(
-      'No Body param match, Twilio sends this in the request to your server.'
-    );
-  }
+  // if (req.body.Body == 'hello') {
+  //   twiml.message('Hi!');
+  // } else if (req.body.Body == 'bye') {
+  //   twiml.message('Goodbye');
+  // } else {
+  //   twiml.message(
+  //     'No Body param match, Twilio sends this in the request to your server.'
+  //   );
+  // }
   res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());
 });

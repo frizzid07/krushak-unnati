@@ -8,30 +8,14 @@
                     <div class="col-xs-12 col-sm-8">
                         <h2><%=userdata.username%></h2>
                         <p><strong>Number: </strong> <%= userdata.mobile%> </p>
-                        <p><strong>Coldstorage Capacity: </strong> <%= userdata.mobile%> </p>
-                        <p><strong>Normalstorage Capacity: </strong> <%= userdata.normalstorage%> </p>
-                        <p><strong>Available Coldstorage Capacity: </strong> <%= userdata.coldstorage%> </p>
-                        <p><strong>Available Normalstorage Capacity: </strong> <%= userdata.mobile%> </p>
+                        <p><strong>Coldstorage Capacity: </strong> <%= userdata.coldstorage%> </p>
+                        <p><strong>Filled Coldstorage Capacity: </strong> <%= userdata.coldstorage_filled%> </p>
+                        <p><strong>Normalstorage Capacity : </strong> <%= userdata.normalstorage%> </p>
+                        <p><strong>Filled Normalstorage Capacity : </strong> <%= userdata.normalstorage_filled%> </p>
+                        <p><strong>Location: </strong> <%= userdata.location%> </p>
                     </div>
                 </div>
-                <div class="col-xs-12 divider text-center">
-                    <div class="col-xs-12 col-sm-4 emphasis">
-                        <br>
-                        <div class="btn-group dropup btn-block">
-                            <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span> Options
-                            </button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu text-left" role="menu">
-                                <li class="divider"></li>
-                                <li><a href="#"><span class="fa fa-warning pull-right"></span>Report this
-                                        distributor</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -52,10 +36,10 @@
                 data: [{
                     type: "pie",
                     startAngle: 240,
-                    yValueFormatString: "##0.00\"%\"",
+                    yValueFormatString: "##0\" tonnes\"",
                     indexLabel: "{label} {y}",
                     dataPoints: [
-                        { y: 40, label: "Total" },
+                        { y: 70, label: "Available" },
                         { y: 30, label: "Filled" }
                     ]
                 }]
@@ -70,11 +54,11 @@
                 data: [{
                     type: "pie",
                     startAngle: 240,
-                    yValueFormatString: "##0.00\"%\"",
+                    yValueFormatString: "##0\" tonnes\"",
                     indexLabel: "{label} {y}",
                     dataPoints: [
-                        { y: 40, label: "Total" },
-                        { y: 30, label: "Filled" }
+                        { y: 50, label: "Available" },
+                        { y: 20, label: "Filled" }
                     ]
                 }]
             });
@@ -86,9 +70,9 @@
 
 <body>
     <div>
-        <span id="chartContainer" style="height: 290px; width: 100%; position: absolute; left: 100px; bottom:px"></span>
+        <span id="chartContainer" style="height: 300px; width: 100%; position: absolute; left: 100px; bottom:px"></span>
         <br>
-        <span id="chartContainer1" style="height: 290px; width: 100%; position: absolute; top:100px;left: 500px"></span>
+        <span id="chartContainer1" style="height: 290px; width: 100%; position: absolute; top:70px;left: 500px"></span>
         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     </div>
 </body>
