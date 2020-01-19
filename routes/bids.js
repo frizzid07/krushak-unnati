@@ -80,7 +80,7 @@ router.post("/:bid_id", middleware.checkCommodityOwnership, function(req, res) {
             console.log(err);
             res.redirect("/commodities");
         } else {
-            var title = commodity.title;
+            var item = commodity.item;
             var image = commodity.image;
             var minBid = commodity.minBid;
             var desc = commodity.description;
@@ -88,7 +88,7 @@ router.post("/:bid_id", middleware.checkCommodityOwnership, function(req, res) {
                 id: req.user._id,
                 username: req.user.username
             };
-            var newCommodity = {title: title, image: image, minBid: minBid, description: desc, author: author, accepted: true};
+            var newCommodity = {item: item, image: image, minBid: minBid, description: desc, author: author, accepted: true};
             Commodity.findByIdAndRemove(commodity._id, {new: true}, function(err) {
                 if(err) {
                     req.flash("error", "Bid unsuccessful!");

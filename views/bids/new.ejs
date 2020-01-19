@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="formStyle">
-            <h2 class="formTitle">Make a New Bid for <%= commodity.title %></h2>
+            <h2 class="formTitle">Make a New Bid for <%= commodity.item %></h2>
             <form action="/commodities/<%= commodity._id %>/bids" method="POST">
                 <div class="form-group">
                     <input class="form-control form-control-lg" type="Number" name="bid[amount]" placeholder="Amount" min=1000 step=250>    

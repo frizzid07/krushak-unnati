@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="formStyle">
-                <h1 class="formTitle">Edit "<%= commodity.title %>"</h1>
+                <h1 class="formTitle">Edit "<%= commodity.item %>"</h1>
                 <form action="/commodities/<%= commodity._id %>?_method=PUT" method="POST">
                     <div class="form-group">
                         <input class="form-control form-control-lg" type="text" name="commodity[item]" value="<%= commodity.item %>" placeholder="Item">    

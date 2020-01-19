@@ -120,6 +120,16 @@ module.exports = client;
 	// });
 }
 
+  // console.log(req.body);
+  if (req.body.Body == 'hello') {
+    twiml.message('Hi!');
+  } else if (req.body.Body == 'bye') {
+    twiml.message('Goodbye');
+  } else {
+    twiml.message(
+      'No Body param match, Twilio sends this in the request to your server.'
+    );
+  }
   res.writeHead(200, { 'Content-Type': 'text/xml' });
   res.end(twiml.toString());
 });
