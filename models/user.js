@@ -8,6 +8,8 @@ var userSchema = new mongoose.Schema({
      mobile: Number,
      coldstorage: Number,
      normalstorage: Number,
+     coldstorage_filled:Number,
+     normalstorage_filled:Number,
      location: String
 });
 
