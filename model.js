@@ -26,6 +26,7 @@ for(var i =0;i<25;i++){
       
       linear.train(x,csvData_price)
       pred = Math.round(linear.predict([[31,val]]))
+      return pred
     });
     }
   }
