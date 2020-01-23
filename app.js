@@ -73,8 +73,8 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 		  //Farmer Sign Up using SMS
 	  var newUser = new User({username: list_details[0], mobile: list_details[2]});
     User.register(newUser, list_details[1], function(err, user) {
-		const accountSid = 'AC60a73ba734edfe8f62b3e82ea3da4467';
-	const authToken = '82b0adef9db385d97eef3edd5e622741';
+		const accountSid = 'your_account_id';
+	const authToken = 'your_token_id';
 	const client = require('twilio')(accountSid, authToken);
 
 	// const phone = Number(list_details[2].toString());
