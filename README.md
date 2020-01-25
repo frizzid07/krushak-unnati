@@ -1,7 +1,7 @@
 # Krushak-Unnati
 Project for NIT-Raipur Hackathon
 
-!(<a href="https://ibb.co/B4gx5Dx"><img src="https://i.ibb.co/q0Rf3Gf/pic7kfw843y5.png" alt="pic7kfw843y5" border="0"></a>)
+<a href="https://ibb.co/B4gx5Dx"><img src="https://i.ibb.co/q0Rf3Gf/pic7kfw843y5.png" alt="pic7kfw843y5" border="0"></a>
 
 A system to produce a better selling rate for the produce to the farmers using unique features like Dynamic Bidding, Best Crop Suggestor, Crop Disease Detector, etc.
 
