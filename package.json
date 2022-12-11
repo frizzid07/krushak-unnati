@@ -14,7 +14,7 @@
     "connect-mongodb-session": "^2.0.6",
     "csv-parse": "^4.8.5",
     "ejs": "^2.6.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.15.6",
     "linear-trainer": "^0.3.0",
     "method-override": "^3.0.0",
